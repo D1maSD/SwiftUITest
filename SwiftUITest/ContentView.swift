@@ -113,13 +113,30 @@ struct ItemRow_Previews: PreviewProvider {
 
 struct ItemDetail: View {
     var item: MenuItem
-    
+    @EnvironmentObject var order: Order
     var body: some View {
         VStack {
-            Image(item.mainImage)
+            ZStack(alignment: .bottomTrailing) {
+                Image(item.mainImage)
+                    .resizable()
+                    .scaledToFit()
+                Text("Photo: \(item.photoCredit)")
+                    .padding(4)
+                    .background(.black)
+                    .font(.caption)
+                    .foregroundColor(.white)
+                    .offset(x: -5, y: -5)
+//                Text(item.description)
+//                    .padding()
+//                Spacer()
+            }
+//            Image(item.mainImage)
             Text(item.description)
+                .padding()
+            Spacer()
         }
         .navigationTitle(item.name)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
