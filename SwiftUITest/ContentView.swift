@@ -38,7 +38,6 @@ struct ContentView: View {
                                 NavigationLink(destination: ItemDetail(item: items)) {
                                     ItemRow(item: items)
                                 }
-//                                ItemRow(item: items)
                             }
                         }
                     }
@@ -47,107 +46,11 @@ struct ContentView: View {
                 .listStyle(GroupedListStyle())
             }
         }
-        //        VStack {
-        //            Image(systemName: "globe")
-        //                .imageScale(.large)
-        //                .foregroundColor(.accentColor)
-        //            Text("Hello, world!")
-        //        }
-        //        .padding()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-    }
-}
-
-
-struct ItemRow : View {
-    let item: MenuItem
-    let colors: [String: Color] = ["D": .purple, "G": .black, "N": .red, "S": .blue, "V": .green]
-    var body: some View {
-        HStack {
-            Image(item.thumbnailImage)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(.gray, lineWidth: 2))
-            VStack(alignment: .leading) {
-                if #available(iOS 16.0, *) {
-                    NavigationLink(value: item) {
-                        ItemRow(item: item)
-                        //                    ItemDetail(item: item)
-                        Text(item.name)
-                            .font(.headline)
-                    }
-                } else {
-                    NavigationLink {
-                        ItemDetail(item: item)
-                        Text(item.name)
-                            .font(.headline)
-                    } label: {
-                        Text("$ \(item.price)")
-                    }
-                }
-                Spacer()
-                ForEach(item.restrictions, id: \.self) { restriction in
-                    Text(restriction)
-                        .font(.caption)
-                        .fontWeight(.black)
-                        .padding(5)
-                        .background(colors[restriction, default: .black])
-                        .clipShape(Circle())
-                        .foregroundColor(.white)
-                }
-            }
-            
-        }
-    }
-}
-
-struct ItemRow_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemRow(item: MenuItem.example)
-    }
-}
-
-struct ItemDetail: View {
-    var item: MenuItem
-    @EnvironmentObject var order: Order
-    var body: some View {
-        VStack {
-            ZStack(alignment: .bottomTrailing) {
-                Image(item.mainImage)
-                    .resizable()
-                    .scaledToFit()
-                Text("Photo: \(item.photoCredit)")
-                    .padding(4)
-                    .background(.black)
-                    .font(.caption)
-                    .foregroundColor(.white)
-                    .offset(x: -5, y: -5)
-//                Text(item.description)
-//                    .padding()
-//                Spacer()
-            }
-//            Image(item.mainImage)
-            Text(item.description)
-                .padding()
-            Spacer()
-        }
-        .navigationTitle(item.name)
-        .navigationBarTitleDisplayMode(.inline)
-    }
-}
-
-struct ItemDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        if #available(iOS 16.0, *) {
-            NavigationStack {
-                ItemRow(item: MenuItem.example)
-            }
-        } else {
-            // Fallback on earlier versions
-        }
     }
 }

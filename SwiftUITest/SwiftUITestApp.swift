@@ -12,6 +12,7 @@ struct SwiftUITestApp: App {
     @StateObject var order = Order()
     var body: some Scene {
         WindowGroup {
+//            OrderView()
             ContentView()
                 .environmentObject(order)
         }
